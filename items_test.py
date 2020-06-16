@@ -1,8 +1,6 @@
-#model = keras.models.load_model('/content/drive/My Drive/model.h5')
 import os
 from tensorflow import keras
 import numpy as np
-from google.colab import files
 from keras.preprocessing import image
 import tensorflow as tf
 import keras_preprocessing
@@ -16,7 +14,7 @@ import sys
 f=__file__
 f=f.replace('items_test.py', '')
 root_dir=f+'ROOM ITEMS'
-model = keras.models.load_model(f+'/model.h5')
+model = keras.models.load_model(f+'model.h5')
 
 
 labels=["BEDSIDE CLOCK","BEDSIDE TABLE","BLANKET BAGS",'CLOTH BRUSH & SHOE HORN',
@@ -83,12 +81,10 @@ similar_image_indices = indices.reshape(-1)
 
 print("Got {} similar images.".format(N_QUERY_RESULT))
 
-#a = fig.add_subplot(5, 5, 1)
-img = cv.imread(query_path) 
+img = cv.imread(query_path)
+imgplot = cv.imshow("Input",img)
 for i in range(N_QUERY_RESULT):
-  a = fig.add_subplot(5, 5, i+1)
   img = cv.imread(img_paths[similar_image_indices[i]]) 
-  imgplot = cv.imshow(img)
+  imgplot = cv.imshow("Output {}".format(i+1),img)
 cv.waitKey(0)
 cv.destroyAllWindows()
-
